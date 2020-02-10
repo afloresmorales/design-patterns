@@ -25,13 +25,22 @@ class Cappuccino implements CoffeeStrategy {
      */
     public prepareCoffee(): void {
         console.log('Making Cappuccino');
+        console.log('Cappuccino does include milk');
         console.log('Cappuccino is ready');
     }
 }
 class Latte implements CoffeeStrategy {
     public prepareCoffee(): void {
         console.log('Making Latte');
+        console.log('Latte does include milk');
         console.log('Latte is ready');
+    }
+}
+class BlackCoffee implements CoffeeStrategy {
+    public prepareCoffee(): void {
+        console.log('Making Black Coffee');
+        console.log('Black coffee does not include milk');
+        console.log('Black Coffee is ready');
     }
 }
 /*
@@ -43,4 +52,9 @@ context.makeCoffeeBeverage();
 
 context.setCoffeeStrategy(new Latte());
 console.log('Client: Make Latte');
+context.makeCoffeeBeverage();
+
+
+context.setCoffeeStrategy(new BlackCoffee());
+console.log('Client: Make Black Coffee');
 context.makeCoffeeBeverage();

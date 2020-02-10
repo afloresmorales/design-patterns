@@ -19,6 +19,7 @@ var Cappuccino = /** @class */ (function () {
      */
     Cappuccino.prototype.prepareCoffee = function () {
         console.log('Making Cappuccino');
+        console.log('Cappuccino does include milk');
         console.log('Cappuccino is ready');
     };
     return Cappuccino;
@@ -28,9 +29,20 @@ var Latte = /** @class */ (function () {
     }
     Latte.prototype.prepareCoffee = function () {
         console.log('Making Latte');
+        console.log('Latte does include milk');
         console.log('Latte is ready');
     };
     return Latte;
+}());
+var BlackCoffee = /** @class */ (function () {
+    function BlackCoffee() {
+    }
+    BlackCoffee.prototype.prepareCoffee = function () {
+        console.log('Making Black Coffee');
+        console.log('Black coffee does not include milk');
+        console.log('Black Coffee is ready');
+    };
+    return BlackCoffee;
 }());
 /*
     The client provides the strategy, and passes it to the context.
@@ -40,4 +52,7 @@ console.log('Client: Make Cappuccino');
 context.makeCoffeeBeverage();
 context.setCoffeeStrategy(new Latte());
 console.log('Client: Make Latte');
+context.makeCoffeeBeverage();
+context.setCoffeeStrategy(new BlackCoffee());
+console.log('Client: Make Black Coffee');
 context.makeCoffeeBeverage();
