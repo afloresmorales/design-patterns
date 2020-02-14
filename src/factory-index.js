@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var PackageFactoryExample = /** @class */ (function () {
     function PackageFactoryExample() {
     }
@@ -21,13 +21,9 @@ var PackageFactoryExample = /** @class */ (function () {
     };
     return PackageFactoryExample;
 }());
-exports.default = PackageFactoryExample;
+exports["default"] = PackageFactoryExample;
 function testFactoryPattern(factory, consoleType) {
     var product = factory.createFactoryPackage(consoleType);
     return product;
 }
 exports.testFactoryPattern = testFactoryPattern;
-console.log('Testing Factory Pattern: PS4');
-testFactoryPattern(new PackageFactoryExample(), 'PS4');
-console.log('Testing Factory Pattern: XBOX');
-testFactoryPattern(new PackageFactoryExample(), 'Xbox');

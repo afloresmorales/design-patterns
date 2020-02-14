@@ -27,9 +27,3 @@ export function testFactoryPattern(factory: AbstractPlainFactory, consoleType: s
     const product = factory.createFactoryPackage(consoleType);   
     return product;
 }
-
-console.log('Testing Factory Pattern: PS4');
-testFactoryPattern(new PackageFactoryExample(), 'PS4');
-console.log('Testing Factory Pattern: XBOX');
-testFactoryPattern(new PackageFactoryExample(), 'Xbox');
-
