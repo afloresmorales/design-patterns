@@ -1,62 +1,31 @@
-var PS4Factory = (function () {
-    function PS4Factory() {
+var PackageFactoryExample = (function () {
+    function PackageFactoryExample() {
     }
-    PS4Factory.prototype.createController = function () {
-        return new PS4Controller();
+    PackageFactoryExample.prototype.createFactoryPackage = function (consoleType) {
+        if (consoleType === 'PS4') {
+            return {
+                consoleType: consoleType,
+                controller: 'ps4 controller',
+                game: 'ps4 COD'
+            };
+        }
+        else {
+            return {
+                consoleType: consoleType,
+                controller: 'xbox controller',
+                game: 'xbox COD'
+            };
+        }
     };
-    PS4Factory.prototype.createConsole = function () {
-        return new PS4Console();
-    };
-    return PS4Factory;
+    return PackageFactoryExample;
 })();
-var XboxFactory = (function () {
-    function XboxFactory() {
-    }
-    XboxFactory.prototype.createController = function () {
-        return new XboxController();
-    };
-    XboxFactory.prototype.createConsole = function () {
-        return new XboxConsole();
-    };
-    return XboxFactory;
-})();
-var PS4Controller = (function () {
-    function PS4Controller() {
-    }
-    PS4Controller.prototype.makeController = function () {
-        console.log('making ps4 controller');
-    };
-    return PS4Controller;
-})();
-var PS4Console = (function () {
-    function PS4Console() {
-    }
-    PS4Console.prototype.makeConsole = function () {
-        console.log('making ps4 console');
-    };
-    return PS4Console;
-})();
-var XboxController = (function () {
-    function XboxController() {
-    }
-    XboxController.prototype.makeController = function () {
-        console.log('making Xbox controller');
-    };
-    return XboxController;
-})();
-var XboxConsole = (function () {
-    function XboxConsole() {
-    }
-    XboxConsole.prototype.makeConsole = function () {
-        console.log('making Xbox Console');
-    };
-    return XboxConsole;
-})();
-function testFactoryPattern(factory) {
-    var controller = factory.createController();
-    var consola = factory.createConsole();
-    controller.makeController();
-    consola.makeConsole();
+function testFactoryPattern(factory, consoleType) {
+    var product = factory.createFactoryPackage(consoleType);
+    console.log('Console: ', product.consoleType);
+    console.log('Controller: ', product.controller);
+    console.log('Game: ', product.game);
 }
-console.log('Testing Factory Pattern: ');
-testFactoryPattern(new PS4Factory());
+console.log('Testing Factory Pattern: PS4');
+testFactoryPattern(new PackageFactoryExample(), 'PS4');
+console.log('Testing Factory Pattern: XBOX');
+testFactoryPattern(new PackageFactoryExample(), 'Xbox');
