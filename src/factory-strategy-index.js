@@ -1,4 +1,4 @@
-var PackageFactory = (function () {
+var PackageFactory = /** @class */ (function () {
     function PackageFactory() {
     }
     PackageFactory.prototype.createPackage = function (consoleType) {
@@ -10,8 +10,8 @@ var PackageFactory = (function () {
         }
     };
     return PackageFactory;
-})();
-var PS4Package = (function () {
+}());
+var PS4Package = /** @class */ (function () {
     function PS4Package() {
     }
     PS4Package.prototype.makePackage = function () {
@@ -22,8 +22,8 @@ var PS4Package = (function () {
         };
     };
     return PS4Package;
-})();
-var XboxPackage = (function () {
+}());
+var XboxPackage = /** @class */ (function () {
     function XboxPackage() {
     }
     XboxPackage.prototype.makePackage = function () {
@@ -34,7 +34,7 @@ var XboxPackage = (function () {
         };
     };
     return XboxPackage;
-})();
+}());
 function testFactoryStrategyPattern(factory, consoleType) {
     var product = factory.createPackage(consoleType);
     var consolePackage = product.makePackage();

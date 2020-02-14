@@ -2,9 +2,9 @@ interface AbstractFactory {
     createPackage(consoleType: String): AbstractPackageProductStrategy;
 }
 interface AbstractPackageProductStrategy {
-    makePackage() : FactoryObject;
+    makePackage() : ConsolePackage;
 }
-interface FactoryObject {
+interface ConsolePackage {
     consoleType: string,
     controller: string,
     game: string
@@ -20,7 +20,7 @@ interface FactoryObject {
     }
 }
 class PS4Package implements AbstractPackageProductStrategy{
-    public makePackage(): FactoryObject {
+    public makePackage(): ConsolePackage {
         return {
             consoleType: 'PS4',
             controller: 'ps4 controller',
@@ -29,7 +29,7 @@ class PS4Package implements AbstractPackageProductStrategy{
     }
 }
 class XboxPackage implements AbstractPackageProductStrategy{
-    public makePackage():FactoryObject {
+    public makePackage():ConsolePackage {
         return {
             consoleType: 'XBOX',
             controller: 'xbox controller',
