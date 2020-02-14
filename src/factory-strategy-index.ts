@@ -10,7 +10,7 @@ interface ConsolePackage {
     game: string
 }
 
- class PackageFactory implements AbstractFactory{
+ export default class PackageFactory implements AbstractFactory{
     public createPackage(consoleType: String):AbstractPackageProductStrategy {
         if (consoleType === 'PS4'){
             return new PS4Package();
@@ -37,15 +37,10 @@ class XboxPackage implements AbstractPackageProductStrategy{
         };
     }
 }
-function testFactoryStrategyPattern(factory: AbstractFactory, consoleType: String){
+export function testFactoryStrategyPattern(factory: AbstractFactory, consoleType: String){
     const product = factory.createPackage(consoleType);
     const consolePackage = product.makePackage();
-    console.log('Console: ', consolePackage.consoleType);
-    console.log('Controller: ', consolePackage.controller);
-    console.log('Game: ', consolePackage.game);    
+    return consolePackage;    
 }
-console.log('Testing Factory Pattern: PS4');
-testFactoryStrategyPattern(new PackageFactory(), 'PS4');
-console.log('Testing Factory Pattern: XBOX');
-testFactoryStrategyPattern(new PackageFactory(), 'Xbox');
+
 

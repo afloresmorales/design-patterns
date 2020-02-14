@@ -1,3 +1,5 @@
+"use strict";
+exports.__esModule = true;
 var PackageFactory = /** @class */ (function () {
     function PackageFactory() {
     }
@@ -11,6 +13,7 @@ var PackageFactory = /** @class */ (function () {
     };
     return PackageFactory;
 }());
+exports["default"] = PackageFactory;
 var PS4Package = /** @class */ (function () {
     function PS4Package() {
     }
@@ -38,11 +41,6 @@ var XboxPackage = /** @class */ (function () {
 function testFactoryStrategyPattern(factory, consoleType) {
     var product = factory.createPackage(consoleType);
     var consolePackage = product.makePackage();
-    console.log('Console: ', consolePackage.consoleType);
-    console.log('Controller: ', consolePackage.controller);
-    console.log('Game: ', consolePackage.game);
+    return consolePackage;
 }
-console.log('Testing Factory Pattern: PS4');
-testFactoryStrategyPattern(new PackageFactory(), 'PS4');
-console.log('Testing Factory Pattern: XBOX');
-testFactoryStrategyPattern(new PackageFactory(), 'Xbox');
+exports.testFactoryStrategyPattern = testFactoryStrategyPattern;
