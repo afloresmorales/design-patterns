@@ -60,4 +60,3 @@ function testFactoryPattern(factory) {
 }
 console.log('Testing Factory Pattern: ');
 testFactoryPattern(new PS4Factory());
-// export = PS4Factory;
