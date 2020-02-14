@@ -1,13 +1,13 @@
 interface AbstractPlainFactory {
-    createFactoryPackage(consoleType: string): FactoryObject;
+    createFactoryPackage(consoleType: string): ConsolePackage;
 }
-interface FactoryObject {
+interface ConsolePackage {
     consoleType: string,
     controller: string,
     game: string
 }
-class PackageFactoryExample implements AbstractPlainFactory{
-    public createFactoryPackage(consoleType: string): FactoryObject {
+export default class PackageFactoryExample implements AbstractPlainFactory{
+    public createFactoryPackage(consoleType: string): ConsolePackage {
         if (consoleType === 'PS4'){
             return {
                 consoleType,
@@ -23,11 +23,9 @@ class PackageFactoryExample implements AbstractPlainFactory{
         }
     }
 }
-function testFactoryPattern(factory: AbstractPlainFactory, consoleType: string){
-    const product = factory.createFactoryPackage(consoleType);
-    console.log('Console: ', product.consoleType);
-    console.log('Controller: ', product.controller);
-    console.log('Game: ', product.game);    
+export function testFactoryPattern(factory: AbstractPlainFactory, consoleType: string){
+    const product = factory.createFactoryPackage(consoleType);   
+    return product;
 }
 
 console.log('Testing Factory Pattern: PS4');
