@@ -1,3 +1,4 @@
+"use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -11,57 +12,55 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var Target = /** @class */ (function () {
-    function Target() {
+exports.__esModule = true;
+var Service = /** @class */ (function () {
+    function Service() {
     }
-    Target.prototype.requestTemperature = function () {
-        return "esta es la temperatura perfecta: 35 Celsius";
-    };
-    return Target;
-}());
-var Adaptee = /** @class */ (function () {
-    function Adaptee() {
-    }
-    Adaptee.prototype.specificRequest = function () {
+    Service.prototype.requestTemperature = function () {
         return {
-            temperatura: 95,
+            temperatura: 21,
+            medida: 'Celsius',
+            regionStatus: 'OK'
+        };
+    };
+    return Service;
+}());
+exports.Service = Service;
+var Sensor = /** @class */ (function () {
+    function Sensor() {
+    }
+    Sensor.prototype.specificRequest = function () {
+        return {
+            temperatura: 70,
             medida: 'Fahrenheit'
         };
     };
-    return Adaptee;
+    return Sensor;
 }());
-var Adapter = /** @class */ (function (_super) {
-    __extends(Adapter, _super);
-    function Adapter(adaptee) {
+exports.Sensor = Sensor;
+var TemperatureAdapter = /** @class */ (function (_super) {
+    __extends(TemperatureAdapter, _super);
+    function TemperatureAdapter(sensor) {
         var _this = _super.call(this) || this;
-        _this.adaptee = adaptee;
+        _this.sensor = sensor;
         return _this;
     }
-    Adapter.prototype.requestTemperature = function () {
-        var adapteeTemperatura = this.adaptee.specificRequest();
+    TemperatureAdapter.prototype.requestTemperature = function () {
+        var sensorTemperatura = this.sensor.specificRequest();
         //(Fahrenheit − 32) × 5/9 = Celsius
-        adapteeTemperatura.temperatura = (adapteeTemperatura.temperatura - 32) * 5 / 9;
-        adapteeTemperatura.medida = 'Celsius';
-        return "esta es la temperatura perfecta: " + adapteeTemperatura.temperatura + " " + adapteeTemperatura.medida;
+        sensorTemperatura.temperatura = Math.round((sensorTemperatura.temperatura - 32) * 5 / 9);
+        sensorTemperatura.medida = 'Celsius';
+        return {
+            temperatura: 21,
+            medida: 'Celsius',
+            regionStatus: 'OK'
+        };
+        ;
     };
-    return Adapter;
-}(Target));
-function clientCode(target) {
-    console.log(target.requestTemperature());
+    return TemperatureAdapter;
+}(Service));
+exports.TemperatureAdapter = TemperatureAdapter;
+function clientCode(service) {
+    return service.requestTemperature();
 }
-console.log('Client: I can work just fine with the Target objects:');
-var target = new Target();
-var temperaturaObject = {
-    temperatura: 35,
-    medida: 'Celsius'
-};
-clientCode(target);
-console.log('');
-var adaptee = new Adaptee();
-console.log('Client: The Adaptee class has a weird interface. See, I don\'t understand it:');
-var adapteeTemperatura = adaptee.specificRequest();
-console.log("Adaptee: " + adapteeTemperatura.temperatura + " " + adapteeTemperatura.medida);
-console.log('');
-console.log('Client: But I can work with it via the Adapter:');
-var adapter = new Adapter(adaptee);
-clientCode(adapter);
+exports.clientCode = clientCode;

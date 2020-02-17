@@ -2,54 +2,48 @@ interface Temperature {
     temperatura: number,
     medida: string,
 }
-class Target {
-    public requestTemperature(): string{
-        return `esta es la temperatura perfecta: 35 Celsius`;
+interface CelsiusTemperature {
+    temperatura: number,
+    medida: string,
+    regionStatus: string
+}
+class Service {
+    public requestTemperature(): CelsiusTemperature{
+        return {
+            temperatura: 21,
+            medida: 'Celsius',
+            regionStatus: 'OK'
+        };
     }
 }
-class Adaptee {
+class Sensor {
     public specificRequest(): Temperature {
         return {
-            temperatura: 95,
+            temperatura: 70,
             medida: 'Fahrenheit'
         };
     }
 }
-class Adapter extends Target{
-    private adaptee: Adaptee;
-    constructor(adaptee: Adaptee){
+class TemperatureAdapter extends Service{
+    private sensor: Sensor;
+    constructor(sensor: Sensor){
         super();
-        this.adaptee = adaptee;
+        this.sensor = sensor;
     }
-    public requestTemperature(): string {
-        const adapteeTemperatura = this.adaptee.specificRequest();
+    public requestTemperature(): CelsiusTemperature {
+        const sensorTemperatura = this.sensor.specificRequest();
         //(Fahrenheit − 32) × 5/9 = Celsius
-        adapteeTemperatura.temperatura = (adapteeTemperatura.temperatura - 32) * 5/9;
-        adapteeTemperatura.medida = 'Celsius';
-        return `esta es la temperatura perfecta: ${adapteeTemperatura.temperatura} ${adapteeTemperatura.medida}`;
+        sensorTemperatura.temperatura = Math.round((sensorTemperatura.temperatura - 32) * 5/9);
+        sensorTemperatura.medida = 'Celsius';
+        return  {
+            temperatura: 21,
+            medida: 'Celsius',
+            regionStatus: 'OK'
+        };;
     }
 }
-function clientCode(target: Target) {
-    console.log(target.requestTemperature());
+function clientCode(service: Service) {
+    return service.requestTemperature();
 }
 
-console.log('Client: I can work just fine with the Target objects:');
-const target = new Target();
-const temperaturaObject = {
-    temperatura: 35,
-    medida: 'Celsius'
-}
-clientCode(target);
-
-console.log('');
-
-const adaptee = new Adaptee();
-console.log('Client: The Adaptee class has a weird interface. See, I don\'t understand it:');
-const adapteeTemperatura = adaptee.specificRequest();
-console.log(`Adaptee: ${adapteeTemperatura.temperatura} ${adapteeTemperatura.medida}`);
-
-console.log('');
-
-console.log('Client: But I can work with it via the Adapter:');
-const adapter = new Adapter(adaptee);
-clientCode(adapter);
+export {TemperatureAdapter, Sensor, Service, clientCode};
